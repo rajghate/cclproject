@@ -4,7 +4,7 @@ click==7.1.2
 cryptography==2.2.2
 Flask==0.12.2
 Flask-SQLAlchemy==2.4.1
-gunicorn==20.0.4
+gunicorn==19.4.5
 idna==2.9
 itsdangerous==1.1.0
 Jinja2==2.11.2
