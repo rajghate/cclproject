@@ -1,0 +1,58 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/main.css')}}">
+</head>
+<body>
+<ul>
+
+  <li><a class="active" href="/">Home</a></li>
+  <li><a  href="/upload">Upload</a></li>
+  {% if uname %}
+  <li><a href="/profile">User Profile</a></li>
+  <li><a href="/logout" style="color: blue;">Logout</a></li>
+  {% endif %}
+  {% if urole=='admin' %}
+  <li><a href="/newuser">Add User</a>
+  {% endif %}
+</ul>
+<br><br><br>
+<CENTER>
+	{% if tasks|length <1 %} 
+	<h3>No files uploaded , upload one below</h3>
+		{% else %}
+	<table class="greyGridTable">
+		<tr>
+			<th><h2>Filename</h2></th>
+			<th><h2>Uploade<h2></th>
+			<th><h2>Owner</h2></th>
+			<th><h2>actions</h2></th>
+			<th><h2>Key</h2></th>
+
+		</tr>
+		{% for task in tasks %}
+		<tr>
+			<td>{{ task.filename }}</td>
+			<td>{{ task.date_uploaded }}</td>
+			<td>{{ task.owner }}</td>
+			<td>
+				{% if task.owner == uname %}
+				<a href="/delete/{{ task.id }}">Delete</a><br>
+				{% endif %}
+				<a href="/view/{{ task.id }}">View </a>
+			</td>
+			{% if task.owner==uname %}
+			<td><a href="/downloader/{{ task.id }}">Get Key</a></td>
+      		{% elif uname in task.visitors %}
+      		<td><a href="/downloader/{{ task.id }}">Get Key</a></td>
+      		{% else %}  	
+			<td><a href="/request/{{ task.id }}">Request Key</a></td>
+			{% endif %}
+		</tr>
+		{% endfor %} 
+	</table>
+	{% endif %}
+	
+	
+</CENTER>
+</body>
+</html>

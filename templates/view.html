@@ -1,0 +1,35 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/main.css')}}">
+</head>
+<body>
+  <ul>
+  <li><a  href="/">Home</a></li>
+  <li><a  href="/upload">Upload</a></li>
+  {% if uname %}
+  <li><a href="/profile">User Profile</a></li>
+  <li><a href="/logout" style="color: blue;">Logout</a></li>
+  {% endif %}
+  {% if urole=='admin' %}
+  <li><a href="/newuser">Add User</a>
+  {% endif %}
+</ul>
+
+<br><br><br>
+<div style="float: left;" class="container">
+<p style="color: gray;"><h3>Filename= {{task.filename}} <br>
+Uploaded={{ task.date_uploaded }}<br>
+</h3>
+{% if not decrypted %}
+<form action="/view/{{task.id}}" enctype="multipart/form-data" method="POST">
+  <label>Enter The key file</label><br>
+  <input  class="cancelbtn" type="file" name="keyzip"><br>
+  <input  class="cancelbtn" type="submit" name="decrypt" value="decrypt">
+</form>
+{% endif %}
+</div>
+<div style="float: right; right: 10px; position: fixed;">
+<textarea rows=40 cols=150 readonly>
+{{data}}
+</textarea>
+</div>

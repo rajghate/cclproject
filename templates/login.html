@@ -1,0 +1,28 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/main.css')}}">
+</head>
+<body>
+
+<ul>
+</ul>
+<br><br><br>
+<center>
+<form action="/login" method="post">
+  <div class="imgcontainer">
+    <img src="{{url_for('static',filename='login.png')}}" alt="Avatar" class="avatar">
+  </div>
+
+  <div class="container">
+    <label for="uname"><b>Username</b></label><br>
+    <input type="email" placeholder="Enter Username" name="email" required>
+    <br>
+    <label for="psw"><b>Password</b></label><br>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+    <br>    
+    <input type="submit" name="login" class="btn" value="Login">
+  </div>
+</form>
+</center>
+</body>
+</html>

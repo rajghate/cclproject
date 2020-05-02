@@ -1,0 +1,92 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/main.css')}}">
+</head>
+<body>
+<ul>
+
+  <li><a href="/">Home</a></li>
+  <li><a href="#Send">Send</a></li>
+  <li><a href="#Rcv">Recieved</a></li>
+  <li><a href="/logout" style="color: blue;">Logout</a></li>
+  {% if urole =="admin" %}
+  <li><a href="/newuser">Add User</a></li>
+  {% endif %}
+</ul>
+<br><br><br>
+<div id="Send">
+	<h2 style="color: red;">Recieved Responses</h2><br>
+	{% if rcvmsgs|length <1 %} 
+	<h3>No messages</h3>
+		{% else %}
+	<table class="greyGridTable">
+		<tr>
+			<th>Sender</th>
+			<th>Response</th>
+			<th>actions</th>
+		</tr>
+		{% for message in rcvmsgs %}
+		<tr>
+			<td>{{message.sender}}</td>
+			<td>{{message.content}}</td>
+			<td>
+				<a href="/reject/{{message.id}}">Delete</a>
+			</td>
+		</tr>
+		{% endfor %}
+		</table>
+		{% endif %}
+</div>
+<hr>
+<div id="Rcv">
+	<h2 style="color: red;">Recieved Request</h2><br>
+	{% if sndmsgs|length <1 %} 
+	<h3>No messages</h3>
+		{% else %}
+	<table class="greyGridTable">
+		<tr>
+			<th>Sender</th>
+			<th>Content</th>
+			<th>actions</th>
+		</tr>
+		{% for message in sndmsgs %}
+		<tr>
+			<td>{{message.sender}}</td>
+			<td>{{message.content}}</td>
+			<td>
+				<a href="/accept/{{message.id}}">Accept</a>
+				<a href="/reject/{{message.id}}">Reject</a>
+			</td>
+		</tr>
+		{% endfor %}
+		</table>
+		{% endif %}
+	</div>
+	<hr>
+	{% if urole=="admin" %}
+	<div id="Users">
+	<h2 style="color: red;">Users</h2><br>
+	<table class="greyGridTable" id="users">
+		<tr>
+			<th><h3>email</h3></th>
+			<th><h3>uname</h3></th>
+			<th><h3>Password</h3></th>
+			<th>Actions</th>
+		</tr>
+		{% for user in users %}
+		<tr>
+			<td>{{user.email}}</td>
+			<td>{{user.uname}}</td>
+			<td>{{user.password}}</td>
+			{% if user.role=="admin" %}
+			<td>No Actions</td>
+			{% else %}
+			<td><a href="/deluser/{{user.id}}">Delete</a></td>
+			{% endif %}
+		</tr>
+		{% endfor %}
+		</table>
+		{% endif %}	
+</div>				
+</body>
+</html>
