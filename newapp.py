@@ -371,5 +371,5 @@ def deluser(id):
     return redirect('/profile')
     
 
-
+app.run()
 
